@@ -8,27 +8,20 @@ using jsms.util;
 
 namespace jsms.sms
 {
-    public class SMSPayload
+    public class Voice_codesPayload
     {
         public string mobile;
-        public Int16 temp_id;
-        public Dictionary<string,string> temp_para;
+        public Int16 ttl;
 
-        public SMSPayload(string mobile, Int16 temp_id)
+
+
+        public Voice_codesPayload(string mobile, Int16 ttl)
         {
             this.mobile = mobile;
-            this.temp_id = temp_id;
+            this.ttl = ttl;
         }
 
-        public SMSPayload(string mobile, Int16 temp_id,  Dictionary<string, string> temp_para)
-        {
-            this.mobile = mobile;
-            this.temp_id = temp_id;
-            this.temp_para = temp_para;
-        }
-
-
-        public string ToJson(SMSPayload sms)
+        public string ToJson(Voice_codesPayload sms)
         {
             return JsonConvert.SerializeObject(sms,
                             Newtonsoft.Json.Formatting.None,
@@ -37,7 +30,7 @@ namespace jsms.sms
                                 NullValueHandling = NullValueHandling.Ignore
                             });
         }
-        public SMSPayload Check()
+        public Voice_codesPayload Check()
         {
             return this;
         }

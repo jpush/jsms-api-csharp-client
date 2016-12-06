@@ -12,6 +12,7 @@ namespace jsms.sms
     {
         private const String HOST_NAME_SSL = "https://api.sms.jpush.cn/v1/";
         private const String CODES_PATH = "codes/";
+        private const String MESSAGES_PATH = "messages";
         private const String VOICE_CODES_PATH = "voice_codes";
         private const String VALID_PATH = "/valid";
 
@@ -42,7 +43,25 @@ namespace jsms.sms
         }
 
 
-        public ResponseWrapper sendVoice_codes(SMSPayload payload)
+        public ResponseWrapper sendMessages(SMSPayload payload)
+        {
+            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            payload.Check();
+            String payloadJson = payload.ToJson(payload);
+            return sendMessages(payloadJson);
+        }
+        public ResponseWrapper sendMessages(string payloadString)
+        {
+            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
+
+            String url = HOST_NAME_SSL;
+            url += CODES_PATH;
+            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
+            return result;
+        }
+
+
+        public ResponseWrapper sendVoice_codes(Voice_codesPayload payload)
         {
             Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
             payload.Check();

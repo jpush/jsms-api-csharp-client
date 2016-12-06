@@ -50,6 +50,7 @@
     <Compile Include="JSMSClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sms\SMSClient.cs" />
+    <Compile Include="sms\Voice_codesPayload.cs" />
     <Compile Include="sms\SMSPayload.cs" />
     <Compile Include="sms\ValidPayload.cs" />
     <Compile Include="util\Base64.cs" />

@@ -24,7 +24,7 @@ namespace example
             // 短信验证码 API
             // API文档地址 http://docs.jiguang.cn/jsms/server/rest_api_jsms/#api
 
-            SMSPayload codes = new SMSPayload("13480600811", "1");
+            SMSPayload codes = new SMSPayload("13480600811", 1);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
             client._SMSClient.sendCodes(codesjson);
