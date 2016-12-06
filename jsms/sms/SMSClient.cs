@@ -55,7 +55,7 @@ namespace jsms.sms
             Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
 
             String url = HOST_NAME_SSL;
-            url += CODES_PATH;
+            url += MESSAGES_PATH;
             ResponseWrapper result = sendPost(url, Authorization(), payloadString);
             return result;
         }

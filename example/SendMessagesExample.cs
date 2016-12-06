@@ -25,12 +25,14 @@ namespace example
             // API文档地址 http://docs.jiguang.cn/jsms/server/rest_api_jsms/#api_3
 
             Dictionary<string, string> temp_para= new Dictionary<string, string>(); ;
-            temp_para.Add("codes", "1");
+            temp_para.Add("codes", "1914");
+            string para = temp_para.ToString();
+            Console.WriteLine(para);
 
-            SMSPayload codes = new SMSPayload("13480600811", 9803, temp_para);
+            SMSPayload codes = new SMSPayload("13480600811", 9890, temp_para);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
-            client._SMSClient.sendCodes(codesjson);
+            client._SMSClient.sendMessages(codesjson);
             
             Console.ReadLine();
         }
