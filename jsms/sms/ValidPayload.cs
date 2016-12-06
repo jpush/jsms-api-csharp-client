@@ -8,34 +8,24 @@ using jsms.util;
 
 namespace jsms.sms
 {
-    public class SMSPayload
+    public class ValidPayload
     {
-        public string mobile;
-        public string temp_id;
-        public Int16 ttl;
-
-        public SMSPayload(string mobile, string temp_id)
+        public string code;
+        public ValidPayload(string code)
         {
-            this.mobile = mobile;
-            this.temp_id = temp_id;
+            this.code = code;
         }
 
-        public SMSPayload(string mobile, Int16 ttl)
+        public string ToJson(ValidPayload code)
         {
-            this.mobile = mobile;
-            this.ttl = ttl;
-        }
-
-        public string ToJson(SMSPayload sms)
-        {
-            return JsonConvert.SerializeObject(sms,
+            return JsonConvert.SerializeObject(code,
                             Newtonsoft.Json.Formatting.None,
                             new JsonSerializerSettings
                             {
                                 NullValueHandling = NullValueHandling.Ignore
                             });
         }
-        public SMSPayload Check()
+        public ValidPayload Check()
         {
             return this;
         }

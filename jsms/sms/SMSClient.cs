@@ -11,9 +11,9 @@ namespace jsms.sms
     public class SMSClient : BaseHttpClient
     {
         private const String HOST_NAME_SSL = "https://api.sms.jpush.cn/v1/";
-        private const String CODES_PATH = "codes";
+        private const String CODES_PATH = "codes/";
         private const String VOICE_CODES_PATH = "voice_codes";
-        private const String VALID_PATH = "codes";
+        private const String VALID_PATH = "/valid";
 
         private String appKey;
         private String masterSecret;
@@ -40,6 +40,44 @@ namespace jsms.sms
             ResponseWrapper result = sendPost(url, Authorization(), payloadString);
             return result;
         }
+
+
+        public ResponseWrapper sendVoice_codes(SMSPayload payload)
+        {
+            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            payload.Check();
+            String payloadJson = payload.ToJson(payload);
+            return sendVoice_codes(payloadJson);
+        }
+        public ResponseWrapper sendVoice_codes(string payloadString)
+        {
+            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
+
+            String url = HOST_NAME_SSL;
+            url += VOICE_CODES_PATH;
+            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
+            return result;
+        }
+
+        public ResponseWrapper validCodes(ValidPayload payload, string msg_id)
+        {
+            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            payload.Check();
+            String payloadJson = payload.ToJson(payload);
+            return validCodes(payloadJson, msg_id);
+        }
+        public ResponseWrapper validCodes(string payloadString, string msg_id)
+        {
+            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
+
+            String url = HOST_NAME_SSL;
+            url += CODES_PATH;
+            url += msg_id;
+            url += VALID_PATH;
+            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
+            return result;
+        }
+
 
         public  String Authorization()
         {

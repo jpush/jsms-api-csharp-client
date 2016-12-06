@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>example.Program</StartupObject>
+    <StartupObject>example.SendCodeExample</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="jsms">
@@ -50,8 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="SendVoiceCodeExample.cs" />
+    <Compile Include="SendCodeExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidCodeExample.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

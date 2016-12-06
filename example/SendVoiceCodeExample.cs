@@ -9,7 +9,7 @@ using jsms;
 
 namespace example
 {
-    class Program
+    class SendVoiceCodeExample
     {
 
         public static String app_key = "6be9204c30b9473e87bad4dc";
@@ -18,11 +18,17 @@ namespace example
         public static void Main(string[] args)
         {
             Console.WriteLine("*****开始发送******");
+
             JSMSClient client = new JSMSClient(app_key, master_secret);
-            SMSPayload user = new SMSPayload("13480600811", "1");
-            String userjson = user.ToJson(user);
-            Console.WriteLine(userjson);
-            client._SMSClient.sendCodes(user);
+
+            // 语音短信验证码 API
+            // API文档地址 http://docs.jiguang.cn/jsms/server/rest_api_jsms/#api_1
+
+            SMSPayload voice_codes = new SMSPayload("13480600811",60);
+            String voice_codesjson = voice_codes.ToJson(voice_codes);
+            Console.WriteLine(voice_codesjson);
+            client._SMSClient.sendVoice_codes(voice_codesjson);
+            
             Console.ReadLine();
         }
     }
