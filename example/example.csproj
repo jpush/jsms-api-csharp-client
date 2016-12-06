@@ -35,12 +35,11 @@
     <StartupObject>example.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jsms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\jsms-api-csharp-client\bin\Debug\jsms.dll</HintPath>
+    <Reference Include="jsms">
+      <HintPath>..\jsms\bin\Debug\jsms.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\jmessage-api-csharp-client\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\jsms\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

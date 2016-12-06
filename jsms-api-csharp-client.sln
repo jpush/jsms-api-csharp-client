@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "example", "example\example.csproj", "{F1B9EC60-8B06-464F-B748-A33D149902EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsms", "jsms-api-csharp-client\jsms.csproj", "{D7FABBE7-6509-432C-A871-27EBD281FE59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jsms", "jsms\jsms.csproj", "{D7FABBE7-6509-432C-A871-27EBD281FE59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
