@@ -112,6 +112,7 @@ namespace jsms.common
                     {
                         result.responseContent = reader.ReadToEnd();
                     }
+
                     String limitQuota = response.GetResponseHeader(RATE_LIMIT_QUOTA);
                     String limitRemaining = response.GetResponseHeader(RATE_LIMIT_Remaining);
                     String limitReset = response.GetResponseHeader(RATE_LIMIT_Reset);

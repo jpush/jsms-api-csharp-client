@@ -27,7 +27,9 @@ namespace example
             SMSPayload codes = new SMSPayload("13480600811", 1);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
-            client._SMSClient.sendCodes(codesjson);
+            ResponseWrapper result= client._SMSClient.sendCodes(codesjson);
+            Console.WriteLine("result.responseContent");
+            Console.WriteLine(result.responseContent);
             
             Console.ReadLine();
         }
