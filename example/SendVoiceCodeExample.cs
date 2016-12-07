@@ -13,7 +13,7 @@ namespace example
     {
 
         public static String app_key = "6be9204c30b9473e87bad4dc";
-        public static String master_secret = "a564b268ba23631a8a34e687";
+        public static String master_secret = "your master_secret";
 
         public static void Main(string[] args)
         {
@@ -24,7 +24,7 @@ namespace example
             // 语音短信验证码 API
             // API文档地址 http://docs.jiguang.cn/jsms/server/rest_api_jsms/#api_1
 
-            Voice_codesPayload voice_codes = new Voice_codesPayload("13480600811",60);
+            Voice_codesPayload voice_codes = new Voice_codesPayload("134888888888", 60);
             String voice_codesjson = voice_codes.ToJson(voice_codes);
             Console.WriteLine(voice_codesjson);
             client._SMSClient.sendVoice_codes(voice_codesjson);

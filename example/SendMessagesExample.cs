@@ -13,7 +13,7 @@ namespace example
     {
 
         public static String app_key = "fc8607f45edb65e477c25430";
-        public static String master_secret = "26aadaaea5dbd6387aaea486";
+        public static String master_secret = "your master_secret";
 
         public static void Main(string[] args)
         {
@@ -29,7 +29,7 @@ namespace example
             string para = temp_para.ToString();
             Console.WriteLine(para);
 
-            SMSPayload codes = new SMSPayload("13480600811", 9890, temp_para);
+            SMSPayload codes = new SMSPayload("134888888888", 9890, temp_para);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
             client._SMSClient.sendMessages(codesjson);
