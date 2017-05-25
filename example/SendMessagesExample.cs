@@ -24,7 +24,7 @@ namespace example
             // 短信验证码 API
             // API文档地址 http://docs.jiguang.cn/jsms/server/rest_api_jsms/#api_3
 
-            Dictionary<string, string> temp_para= new Dictionary<string, string>(); ;
+            Dictionary<string, string> temp_para = new Dictionary<string, string>();
             temp_para.Add("codes", "1914");
             string para = temp_para.ToString();
             Console.WriteLine(para);
@@ -33,7 +33,7 @@ namespace example
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
             client._SMSClient.sendMessages(codesjson);
-            
+
             Console.ReadLine();
         }
     }
