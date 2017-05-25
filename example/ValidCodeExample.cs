@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using jsms.common;
-using jsms.util;
 using jsms.sms;
 using jsms;
 
@@ -26,7 +21,7 @@ namespace example
             ValidPayload codes = new ValidPayload("121806");
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
-            client._SMSClient.validCodes(codes,msg_id);
+            client._SMSClient.validCodes(codes, msg_id);
             Console.ReadLine();
         }
     }

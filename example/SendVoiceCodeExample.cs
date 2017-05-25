@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using jsms.common;
-using jsms.util;
 using jsms.sms;
 using jsms;
 
@@ -11,7 +6,6 @@ namespace example
 {
     class SendVoiceCodeExample
     {
-
         public static String app_key = "6be9204c30b9473e87bad4dc";
         public static String master_secret = "your master_secret";
 
@@ -28,7 +22,7 @@ namespace example
             String voice_codesjson = voice_codes.ToJson(voice_codes);
             Console.WriteLine(voice_codesjson);
             client._SMSClient.sendVoice_codes(voice_codesjson);
-            
+
             Console.ReadLine();
         }
     }
