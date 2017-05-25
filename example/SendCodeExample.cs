@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using jsms.common;
-using jsms.util;
 using jsms.sms;
 using jsms;
 
@@ -27,10 +23,10 @@ namespace example
             SMSPayload codes = new SMSPayload("134888888888", 1);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
-            ResponseWrapper result= client._SMSClient.sendCodes(codesjson);
+            ResponseWrapper result = client._SMSClient.sendCodes(codesjson);
             Console.WriteLine("result.responseContent");
             Console.WriteLine(result.responseContent);
-            
+
             Console.ReadLine();
         }
     }
