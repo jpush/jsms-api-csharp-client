@@ -7,7 +7,6 @@ namespace example
 {
     class SendCodeExample
     {
-
         public static String app_key = "6be9204c30b9473e87bad4dc";
         public static String master_secret = "your master_secret";
 
