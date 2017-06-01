@@ -27,7 +27,7 @@ namespace example
             SMSPayload codes = new SMSPayload("134888888888", 9890, temp_para);
             String codesjson = codes.ToJson(codes);
             Console.WriteLine(codesjson);
-            client._SMSClient.sendMessages(codesjson);
+            client._SMSClient.SendMessages(codesjson);
 
             Console.ReadLine();
         }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using jsms.common;
-using jsms.util;
+﻿using Newtonsoft.Json;
 
 namespace jsms.sms
 {
     public class ValidPayload
     {
         public string code;
+
         public ValidPayload(string code)
         {
             this.code = code;
@@ -18,13 +13,12 @@ namespace jsms.sms
 
         public string ToJson(ValidPayload code)
         {
-            return JsonConvert.SerializeObject(code,
-                            Newtonsoft.Json.Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
+            return JsonConvert.SerializeObject(code, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
         }
+
         public ValidPayload Check()
         {
             return this;
