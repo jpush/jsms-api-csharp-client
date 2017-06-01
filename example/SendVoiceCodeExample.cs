@@ -21,7 +21,7 @@ namespace example
             Voice_codesPayload voice_codes = new Voice_codesPayload("134888888888", 60);
             String voice_codesjson = voice_codes.ToJson(voice_codes);
             Console.WriteLine(voice_codesjson);
-            client._SMSClient.sendVoice_codes(voice_codesjson);
+            client._SMSClient.SendVoice_codes(voice_codesjson);
 
             Console.ReadLine();
         }

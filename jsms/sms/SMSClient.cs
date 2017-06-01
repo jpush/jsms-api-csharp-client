@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using jsms.util;
 using jsms.common;
 using System.Diagnostics;
@@ -18,93 +15,87 @@ namespace jsms.sms
 
         private String appKey;
         private String masterSecret;
+
         public SMSClient(String appKey, String masterSecret)
         {
-            Preconditions.checkArgument(!String.IsNullOrEmpty(appKey), "appKey should be set");
-            Preconditions.checkArgument(!String.IsNullOrEmpty(masterSecret), "masterSecret should be set");
+            Preconditions.CheckArgument(!String.IsNullOrEmpty(appKey), "appKey should be set");
+            Preconditions.CheckArgument(!String.IsNullOrEmpty(masterSecret), "masterSecret should be set");
             this.appKey = appKey;
             this.masterSecret = masterSecret;
         }
-        public ResponseWrapper sendCodes(SMSPayload payload)
+
+        public ResponseWrapper SendCodes(SMSPayload payload)
         {
-            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            Preconditions.CheckArgument(payload != null, "pushPayload should not be empty");
             payload.Check();
             String payloadJson = payload.ToJson(payload);
-            return sendCodes(payloadJson);
+            return SendCodes(payloadJson);
         }
-        public ResponseWrapper sendCodes(string payloadString)
-        {
-            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
 
+        public ResponseWrapper SendCodes(string payloadString)
+        {
+            Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += CODES_PATH;
-            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
-            return result;
+            return SendPost(url, Authorization(), payloadString);
         }
 
-
-        public ResponseWrapper sendMessages(SMSPayload payload)
+        public ResponseWrapper SendMessages(SMSPayload payload)
         {
-            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            Preconditions.CheckArgument(payload != null, "pushPayload should not be empty");
             payload.Check();
             String payloadJson = payload.ToJson(payload);
-            return sendMessages(payloadJson);
+            return SendMessages(payloadJson);
         }
-        public ResponseWrapper sendMessages(string payloadString)
-        {
-            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
 
+        public ResponseWrapper SendMessages(string payloadString)
+        {
+            Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += MESSAGES_PATH;
-            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
-            return result;
+            return SendPost(url, Authorization(), payloadString);
         }
 
-
-        public ResponseWrapper sendVoice_codes(Voice_codesPayload payload)
+        public ResponseWrapper SendVoice_codes(Voice_codesPayload payload)
         {
-            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            Preconditions.CheckArgument(payload != null, "pushPayload should not be empty");
             payload.Check();
             String payloadJson = payload.ToJson(payload);
-            return sendVoice_codes(payloadJson);
+            return SendVoice_codes(payloadJson);
         }
-        public ResponseWrapper sendVoice_codes(string payloadString)
-        {
-            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
 
+        public ResponseWrapper SendVoice_codes(string payloadString)
+        {
+            Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += VOICE_CODES_PATH;
-            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
-            return result;
+            return SendPost(url, Authorization(), payloadString);
         }
 
-        public ResponseWrapper validCodes(ValidPayload payload, string msg_id)
+        public ResponseWrapper ValidCodes(ValidPayload payload, string msg_id)
         {
-            Preconditions.checkArgument(payload != null, "pushPayload should not be empty");
+            Preconditions.CheckArgument(payload != null, "pushPayload should not be empty");
             payload.Check();
             String payloadJson = payload.ToJson(payload);
-            return validCodes(payloadJson, msg_id);
+            return ValidCodes(payloadJson, msg_id);
         }
-        public ResponseWrapper validCodes(string payloadString, string msg_id)
-        {
-            Preconditions.checkArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
 
+        public ResponseWrapper ValidCodes(string payloadString, string msg_id)
+        {
+            Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += CODES_PATH;
             url += msg_id;
             url += VALID_PATH;
-            ResponseWrapper result = sendPost(url, Authorization(), payloadString);
-            return result;
+            return SendPost(url, Authorization(), payloadString);
         }
 
-
-        public  String Authorization()
+        public String Authorization()
         {
+            Debug.Assert(!string.IsNullOrEmpty(appKey));
+            Debug.Assert(!string.IsNullOrEmpty(masterSecret));
 
-            Debug.Assert(!string.IsNullOrEmpty(this.appKey));
-            Debug.Assert(!string.IsNullOrEmpty(this.masterSecret));
-
-            String origin = this.appKey + ":" + this.masterSecret;
+            String origin = appKey + ":" + masterSecret;
             return Base64.getBase64Encode(origin);
         }
     }

@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace jsms.util
 {
     class Preconditions
     {
-        public static void checkArgument(bool expression)
+        public static void CheckArgument(bool expression)
         {
             if (!expression)
             {
                 throw new ArgumentNullException();
             }
         }
-        public static void checkArgument(bool expression, object errorMessage)
+
+        public static void CheckArgument(bool expression, object errorMessage)
         {
             if (!expression)
             {

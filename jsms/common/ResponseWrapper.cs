@@ -1,22 +1,16 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
-using jsms.util;
-using System.Diagnostics;
-using Newtonsoft.Json;
 
 namespace jsms.common
 {
     public class ResponseWrapper
     {
-        private const int RESPONSE_CODE_NONE = -1;
         public HttpStatusCode responseCode = HttpStatusCode.BadRequest;
+
+        private const int RESPONSE_CODE_NONE = -1;
         private String _responseContent;
-        public String responseContent
+
+        public String ResponseContent
         {
             get
             {
@@ -27,10 +21,12 @@ namespace jsms.common
                 _responseContent = value;
             }
         }
-        public void setErrorObject()
+
+        public void SetErrorObject()
         {
             if (!string.IsNullOrEmpty(_responseContent))
             {
+
             }
         }
 
@@ -38,15 +34,15 @@ namespace jsms.common
         public int rateLimitRemaining;
         public int rateLimitReset;
 
-        public bool isServerResponse()
+        public bool IsServerResponse()
         {
             return responseCode == HttpStatusCode.OK;
         }
+
         public String exceptionString;
 
         public ResponseWrapper()
         {
         }
-
     }
 }
