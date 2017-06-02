@@ -6,7 +6,7 @@ namespace jsms.util
 {
     class Md5
     {
-        public static String getMD5Hash(String str)
+        public static String GetMD5Hash(String str)
         {
             MD5 md5 = MD5.Create();
             byte[] bs = Encoding.UTF8.GetBytes(str);

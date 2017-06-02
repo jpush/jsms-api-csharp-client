@@ -7,16 +7,16 @@ namespace jsms.sms
     public class SMSPayload
     {
         public string mobile;
-        public Int16 temp_id;
+        public Int32 temp_id;
         public Dictionary<string, string> temp_para;
 
-        public SMSPayload(string mobile, Int16 temp_id)
+        public SMSPayload(string mobile, Int32 temp_id)
         {
             this.mobile = mobile;
             this.temp_id = temp_id;
         }
 
-        public SMSPayload(string mobile, Int16 temp_id, Dictionary<string, string> temp_para)
+        public SMSPayload(string mobile, Int32 temp_id, Dictionary<string, string> temp_para)
         {
             this.mobile = mobile;
             this.temp_id = temp_id;
