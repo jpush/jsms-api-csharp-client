@@ -15,6 +15,7 @@ namespace jsms.sms
 
         private String appKey;
         private String masterSecret;
+        private String auth;
 
         public SMSClient(String appKey, String masterSecret)
         {
@@ -22,6 +23,7 @@ namespace jsms.sms
             Preconditions.CheckArgument(!String.IsNullOrEmpty(masterSecret), "masterSecret should be set");
             this.appKey = appKey;
             this.masterSecret = masterSecret;
+            auth = Authorization();
         }
 
         public ResponseWrapper SendCodes(SMSPayload payload)
@@ -37,7 +39,7 @@ namespace jsms.sms
             Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += CODES_PATH;
-            return SendPost(url, Authorization(), payloadString);
+            return SendPost(url, auth, payloadString);
         }
 
         public ResponseWrapper SendMessages(SMSPayload payload)
@@ -53,7 +55,7 @@ namespace jsms.sms
             Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += MESSAGES_PATH;
-            return SendPost(url, Authorization(), payloadString);
+            return SendPost(url, auth, payloadString);
         }
 
         public ResponseWrapper SendVoice_codes(Voice_codesPayload payload)
@@ -69,7 +71,7 @@ namespace jsms.sms
             Preconditions.CheckArgument(!string.IsNullOrEmpty(payloadString), "payloadString should not be empty");
             String url = HOST_NAME_SSL;
             url += VOICE_CODES_PATH;
-            return SendPost(url, Authorization(), payloadString);
+            return SendPost(url, auth, payloadString);
         }
 
         public ResponseWrapper ValidCodes(ValidPayload payload, string msg_id)
@@ -87,7 +89,7 @@ namespace jsms.sms
             url += CODES_PATH;
             url += msg_id;
             url += VALID_PATH;
-            return SendPost(url, Authorization(), payloadString);
+            return SendPost(url, auth, payloadString);
         }
 
         public String Authorization()
@@ -96,7 +98,7 @@ namespace jsms.sms
             Debug.Assert(!string.IsNullOrEmpty(masterSecret));
 
             String origin = appKey + ":" + masterSecret;
-            return Base64.getBase64Encode(origin);
+            return Base64.GetBase64Encode(origin);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace jsms.util
             return Regex.IsMatch(value, @"^\d*[.]?\d*$");
         }
 
-        public static String arrayToString(String[] values)
+        public static String ArrayToString(String[] values)
         {
             if (null == values) return "";
 
@@ -127,7 +127,6 @@ namespace jsms.util
         {
             Boolean isname = new Boolean();
             isname = Regex.IsMatch(tag, @"^[a-zA-Z0-9_\u4e00-\u9fa5]+$");
-            //最多 40 个字节
             isname = isname && (tag.Length < 41);
             return isname;
         }
@@ -136,7 +135,6 @@ namespace jsms.util
         {
             Boolean isname = new Boolean();
             isname = Regex.IsMatch(alias, @"^[a-zA-Z0-9_\u4e00-\u9fa5]+$");
-            //最多 40 个字节
             isname = isname && (alias.Length < 41);
             return isname;
         }

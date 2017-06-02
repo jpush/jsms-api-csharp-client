@@ -15,11 +15,11 @@ namespace jsms.common
 
         protected const int RESPONSE_OK = 200;
 
-        //设置连接超时时间
-        private const int DEFAULT_CONNECTION_TIMEOUT = (20 * 1000); 
+        //连接超时时间
+        private const int DEFAULT_CONNECTION_TIMEOUT = (20 * 1000); // 20s
 
-        //设置读取超时时间
-        private const int DEFAULT_SOCKET_TIMEOUT = (30 * 1000); 
+        //读取超时时间
+        private const int DEFAULT_SOCKET_TIMEOUT = (30 * 1000);     // 30s
 
         public ResponseWrapper SendPost(String url, String auth, String reqParams)
         {
@@ -41,7 +41,7 @@ namespace jsms.common
             return SendRequest("PUT", url, auth, reqParams);
         }
 
-        /**
+        /*
          *
          * method "POST" or "GET"
          * url
@@ -60,7 +60,7 @@ namespace jsms.common
 
             try
             {
-                //利用工厂机制（factory mechanism）通过Create()方法来创建的
+                // 利用工厂机制（factory mechanism）通过Create()方法来创建
                 myReq = (HttpWebRequest)WebRequest.Create(url);
 
                 //request类型
@@ -72,17 +72,7 @@ namespace jsms.common
                     myReq.Headers.Add("Authorization", "Basic " + auth);
                 }
 
-                if (method == "POST")
-                {
-                    byte[] bs = Encoding.UTF8.GetBytes(reqParams);
-                    myReq.ContentLength = bs.Length;
-                    using (Stream reqStream = myReq.GetRequestStream())
-                    {
-                        reqStream.Write(bs, 0, bs.Length);
-                        reqStream.Close();
-                    }
-                }
-                else if (method == "PUT")
+                if (method.Equals("POST") || method.Equals("PUT"))
                 {
                     byte[] bs = Encoding.UTF8.GetBytes(reqParams);
                     myReq.ContentLength = bs.Length;
@@ -119,7 +109,6 @@ namespace jsms.common
                     }
                 }
             }
-            //异常处理
             catch (WebException e)
             {
                 if (e.Status == WebExceptionStatus.ProtocolError)
