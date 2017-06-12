@@ -1,15 +1,22 @@
 # jsms-api-csharp-client
 
-## 概述
+这是 [JSMS](https://docs.jiguang.cn/jsms/guideline/JSMS_guide/) Rest API 的 CSharp 版本封装开发包，由极光推送官方提供，支持最新的 API 功能。
 
-这是短信 Rest API 的 CSharp 版本封装开发包，是有极光推送官方提供的，一般支持最新的 API 功能。
+## Installation
+1. 添加 jsms.dll
+2. 添加 [Json.NET](http://www.newtonsoft.com/json)
 
-对应的 Rest API 文档：http://docs.jiguang.cn/server/rest_api_jsms/
+## Example
+项目目录下的 example 文件夹中有示例代码。
 
-## 安装
-添加第三方：Json.NET
+## Support
+[官方文档](https://docs.jiguang.cn/jsms/server/rest_api_jsms/)
 
-添加： jsms.dll
+## Contribute
+Please contribute! [Look at the issues](https://github.com/jpush/jsms-api-csharp-client/issues).
 
-## 使用
-项目目录下 example 文件夹中有示例代码。
+## Versioning
+We use [SemVer](http://semver.org/lang/zh-CN/) for versioning. For the versions available, see the [tags](https://github.com/jpush/jsms-api-csharp-client/releases) on this repository.
+
+## License
+MIT © [JiGuang](/license)
