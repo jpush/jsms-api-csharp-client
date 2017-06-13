@@ -94,9 +94,6 @@ namespace jsms.sms
 
         public String Authorization()
         {
-            Debug.Assert(!string.IsNullOrEmpty(appKey));
-            Debug.Assert(!string.IsNullOrEmpty(masterSecret));
-
             String origin = appKey + ":" + masterSecret;
             return Base64.GetBase64Encode(origin);
         }
