@@ -62,14 +62,12 @@ namespace jsms.common
             {
                 // 利用工厂机制（factory mechanism）通过Create()方法来创建
                 myReq = (HttpWebRequest)WebRequest.Create(url);
-
-                //request类型
                 myReq.Method = method;
                 myReq.ContentType = "application/json";
 
                 if (!String.IsNullOrEmpty(auth))
                 {
-                    myReq.Headers.Add("Authorization", "Basic " + auth);
+                    myReq.Headers["Authorization"] = "Basic " + auth;
                 }
 
                 if (method.Equals("POST") || method.Equals("PUT"))
