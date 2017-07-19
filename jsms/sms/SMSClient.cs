@@ -99,13 +99,6 @@ namespace jsms.sms
             return SendPost(url, auth, payloadstring);
         }
 
-        public ResponseWrapper QuerySchedule(string scheduleId)
-        {
-            Preconditions.CheckArgument(!string.IsNullOrEmpty(scheduleId), "scheduleId should not be empty");
-            string url = HOST_NAME_SSL + SCHEDULE + "/" + scheduleId;
-            return SendGet(url, auth, scheduleId);
-        }
-
         /// <summary>
         /// 发送模块短信定时任务。
         /// </summary>
@@ -113,6 +106,18 @@ namespace jsms.sms
         {
             string url = HOST_NAME_SSL + SCHEDULE;
             return SendPost(url, auth, payloadJsonStr);
+        }
+
+        /// <summary>
+        /// 查询定时任务信息。
+        /// </summary>
+        /// <param name="scheduleId">定时任务 Id</param>
+        /// <returns></returns>
+        public ResponseWrapper QuerySchedule(string scheduleId)
+        {
+            Preconditions.CheckArgument(!string.IsNullOrEmpty(scheduleId), "scheduleId should not be empty");
+            string url = HOST_NAME_SSL + SCHEDULE + "/" + scheduleId;
+            return SendGet(url, auth, scheduleId);
         }
 
         /// <summary>
@@ -133,6 +138,7 @@ namespace jsms.sms
         /// <summary>
         /// 删除模板短信定时任务。
         /// </summary>
+        /// <param name="scheduleId">定时任务 Id</param>
         public ResponseWrapper DeleteSchedule(string scheduleId)
         {
             Preconditions.CheckArgument(!string.IsNullOrEmpty(scheduleId), "scheduleId should not be empty");
