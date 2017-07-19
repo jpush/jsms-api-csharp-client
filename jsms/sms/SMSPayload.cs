@@ -8,7 +8,12 @@ namespace jsms.sms
     {
         public string mobile;
         public Int32 temp_id;
-        public Dictionary<string, string> temp_para;
+
+        [JsonProperty("temp_para")]
+        public Dictionary<string, string> TempParameter { get; set; }
+
+        [JsonProperty("send_time")]
+        public DateTime SendTime { get; set; }
 
         public SMSPayload(string mobile, Int32 temp_id)
         {
@@ -20,7 +25,7 @@ namespace jsms.sms
         {
             this.mobile = mobile;
             this.temp_id = temp_id;
-            this.temp_para = temp_para;
+            TempParameter = temp_para;
         }
 
         public string ToJson(SMSPayload sms)
