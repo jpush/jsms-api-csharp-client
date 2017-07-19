@@ -12,8 +12,8 @@ namespace jsms.sms
         [JsonProperty("temp_para")]
         public Dictionary<string, string> TempParameter { get; set; }
 
-        [JsonProperty("send_time")]
-        public DateTime SendTime { get; set; }
+        [JsonProperty("send_time", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? SendTime { get; set; }
 
         public SMSPayload(string mobile, Int32 temp_id)
         {
