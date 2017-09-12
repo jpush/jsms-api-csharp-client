@@ -23,7 +23,7 @@ namespace Jiguang.JSMS.Model
         /// <summary>
         /// 模板参数，需要替换的键值对。
         /// </summary>
-        [JsonProperty("temp_para")]
+        [JsonProperty("temp_para", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string> TemplateParameters { get; set; }
 
         public override string ToString()
