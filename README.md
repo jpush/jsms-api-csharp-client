@@ -9,7 +9,7 @@
 
 ## Documents
 
-- [REST API document](https://docs.jiguang.cn/jsms/server/rest_api_jsms/)
+[REST API document](https://docs.jiguang.cn/jsms/server/rest_api_jsms/)
 
 ## Support Frameworks
 
@@ -17,7 +17,7 @@
 
 ## Support
 
-- [极光社区](http://community.jiguang.cn/) 
+[极光社区](http://community.jiguang.cn/) 
 
 ## FAQ
 
