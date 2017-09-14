@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">netstandard1.1;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>MIT</Copyright>
+    <Authors>Jiguang, Hevin Liu</Authors>
+    <Company>Jiguang</Company>
+    <Product>JSMS</Product>
+    <Description>JSMS Library for .NET.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
