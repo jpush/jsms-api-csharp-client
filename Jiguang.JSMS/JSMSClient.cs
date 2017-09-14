@@ -240,8 +240,6 @@ namespace Jiguang.JSMS
             JObject json = JObject.FromObject(message);
             json.Add("send_time", sendTime);
 
-            Console.WriteLine(json.ToString());
-
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
             HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("schedule", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
