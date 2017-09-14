@@ -1,20 +1,27 @@
-# jsms-api-csharp-client
+# JSMS Library for .NET
 
-这是 [JSMS](https://docs.jiguang.cn/jsms/guideline/JSMS_guide/) Rest API 的 CSharp 版本封装开发包，由极光推送官方提供，支持最新的 API 功能。
+[极光](https://www.jiguang.cn/)官方支持的 [JSMS](https://docs.jiguang.cn/jsms/guideline/JSMS_guide/) .NET API Client。
 
 ## Installation
 
-1. 添加 jsms.dll
-2. 添加 [Json.NET](http://www.newtonsoft.com/json)
+- [NuGet](https://www.nuget.org/packages/Jiguang.JSMS/1.0.0)
+- 手动添加 Jiguang.JSMS.dll（在运行时可能会提示缺少其他的依赖，根据提示安装即可）。
 
-## Example
+## Documents
 
-项目目录下的 example 文件夹中有示例代码。
+- [REST API document](https://docs.jiguang.cn/jsms/server/rest_api_jsms/)
+
+## Support Frameworks
+
+基于 [.NET Standard 1.1](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard1.1.md) 和 [.NET Standard 1.3](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard1.3.md)。
 
 ## Support
 
-- [官方文档](https://docs.jiguang.cn/jsms/server/rest_api_jsms/)
 - [极光社区](http://community.jiguang.cn/) 
+
+## FAQ
+
+1.如果调用异步方法时出现死锁，即一直没有返回 [HttpResponse](https://github.com/jpush/jsms-api-csharp-client/blob/v2-dev/Jiguang.JSMS/Model/HttpResponse.cs)，可参考这篇[文章](https://blogs.msdn.microsoft.com/jpsanders/2017/08/28/asp-net-do-not-use-task-result-in-main-context/)。
 
 ## Contribute
 
