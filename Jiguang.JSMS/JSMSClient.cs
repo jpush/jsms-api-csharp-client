@@ -12,8 +12,6 @@ namespace Jiguang.JSMS
 {
     public class JSMSClient
     {
-        private const string BASE_URL = "https://api.sms.jpush.cn/v1/";
-
         private static string APP_KEY;
         private static string MASTER_SECRET;
 
@@ -30,7 +28,10 @@ namespace Jiguang.JSMS
             APP_KEY = appKey;
             MASTER_SECRET = masterSecret;
 
-            httpClient = new HttpClient();
+            httpClient = new HttpClient
+            {
+                BaseAddress = new Uri("https://api.sms.jpush.cn/v1/")
+            };
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var auth = Convert.ToBase64String(Encoding.UTF8.GetBytes(appKey + ":" + masterSecret));
@@ -54,8 +55,7 @@ namespace Jiguang.JSMS
                 { "temp_id", tempId }
             };
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "codes";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("codes", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -79,8 +79,7 @@ namespace Jiguang.JSMS
                 throw new ArgumentNullException(nameof(jsonBody));
 
             HttpContent httpContent = new StringContent(jsonBody, Encoding.UTF8);
-            string url = BASE_URL + "voice_codes";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("voice_codes", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -130,8 +129,7 @@ namespace Jiguang.JSMS
                 { "code", code }
             };
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "codes/" + msgId + "/valid";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"codes/{msgId}/valid", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -160,8 +158,7 @@ namespace Jiguang.JSMS
                 throw new ArgumentNullException(nameof(message));
 
             HttpContent httpContent = new StringContent(message.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "messages";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("messages", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -211,8 +208,7 @@ namespace Jiguang.JSMS
             };
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "messages/batch";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("messages/batch", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -247,8 +243,7 @@ namespace Jiguang.JSMS
             Console.WriteLine(json.ToString());
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "schedule";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("schedule", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -291,8 +286,7 @@ namespace Jiguang.JSMS
             };
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "schedule/batch";
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("schedule/batch", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -315,8 +309,7 @@ namespace Jiguang.JSMS
             json.Add("send_time", sendTime);
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "schedule/" + scheduleId;
-            HttpResponseMessage httpResponseMessage = await httpClient.PutAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PutAsync($"schedule/{scheduleId}", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -358,8 +351,7 @@ namespace Jiguang.JSMS
             };
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            string url = BASE_URL + "schedule/batch/" + scheduleId;
-            HttpResponseMessage httpResponseMessage = await httpClient.PutAsync(url, httpContent).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.PutAsync($"schedule/batch/{scheduleId}", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -383,8 +375,7 @@ namespace Jiguang.JSMS
             if (string.IsNullOrEmpty(scheduleId))
                 throw new ArgumentNullException(nameof(scheduleId));
 
-            string url = BASE_URL + "schedule/" + scheduleId;
-            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"schedule/{scheduleId}").ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -407,8 +398,7 @@ namespace Jiguang.JSMS
             if (string.IsNullOrEmpty(scheduleId))
                 throw new ArgumentNullException(nameof(scheduleId));
 
-            string url = BASE_URL + "schedule/" + scheduleId;
-            HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync(url).ConfigureAwait(false);
+            HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync($"schedule/{scheduleId}").ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -421,6 +411,60 @@ namespace Jiguang.JSMS
         public HttpResponse DeleteScheduleTask(string scheduleId)
         {
             Task<HttpResponse> task = Task.Run(() => DeleteScheduleTaskAsync(scheduleId));
+            task.Wait();
+            return task.Result;
+        }
+
+        public async Task<HttpResponse> CheckAccountBalanceAsync(string devKey, string apiDevSecret)
+        {
+            if (string.IsNullOrEmpty(devKey))
+                throw new ArgumentNullException(nameof(devKey));
+
+            if (string.IsNullOrEmpty(apiDevSecret))
+                throw new ArgumentNullException(nameof(apiDevSecret));
+
+            var request = new HttpRequestMessage() {
+                RequestUri = new Uri("https://api.sms.jpush.cn/v1/accounts/dev"),
+                Method = HttpMethod.Get,
+            };
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var auth = Convert.ToBase64String(Encoding.UTF8.GetBytes(devKey + ":" + apiDevSecret));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", auth);
+
+            HttpResponseMessage httpResponseMessage = await httpClient.SendAsync(request).ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 检查账号余量，账号余量指未分配给某个应用，属于账号共享的短信余量。
+        /// </summary>
+        /// <param name="devKey">开发者标识。可以在极光官网控制台的个人信息中找到。</param>
+        /// <param name="apiDevSecret">可以在极光官网控制台的个人信息中找到。</param>
+        public HttpResponse CheckAccountBalance(string devKey, string apiDevSecret)
+        {
+            Task<HttpResponse> task = Task.Run(() => CheckAccountBalanceAsync(devKey, apiDevSecret));
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// 查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
+        /// </summary>
+        public async Task<HttpResponse> CheckAppBalanceAsync()
+        {
+            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync("accounts/app").ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
+        /// </summary>
+        public HttpResponse CheckAppBalance()
+        {
+            Task<HttpResponse> task = Task.Run(() => CheckAppBalanceAsync());
             task.Wait();
             return task.Result;
         }
