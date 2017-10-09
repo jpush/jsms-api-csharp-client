@@ -12,7 +12,7 @@ namespace Jiguang.JSMS
 {
     public class JSMSClient
     {
-        private HttpClient httpClient;
+        public HttpClient httpClient;
 
         public JSMSClient(string appKey, string masterSecret)
         {
@@ -167,7 +167,7 @@ namespace Jiguang.JSMS
             if (templateMessageList == null || templateMessageList.Count == 0)
                 throw new ArgumentException(nameof(templateMessageList));
 
-            int tempId = templateMessageList[0].TemplateId;
+            int? tempId = templateMessageList[0].TemplateId;
 
             JArray recipients = new JArray();
             foreach (TemplateMessage msg in templateMessageList)
@@ -440,7 +440,7 @@ namespace Jiguang.JSMS
 
         /// <summary>
         /// 检查账号余量，账号余量指未分配给某个应用，属于账号共享的短信余量。
-        /// <see cref="https://docs.jiguang.cn/jsms/server/rest_jsms_api_account/#api_1"/>
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_jsms_api_account/#api_1"/></para>
         /// </summary>
         /// <param name="devKey">开发者标识。可以在极光官网控制台的个人信息中找到。</param>
         /// <param name="apiDevSecret">可以在极光官网控制台的个人信息中找到。</param>
@@ -463,11 +463,102 @@ namespace Jiguang.JSMS
 
         /// <summary>
         /// 查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
-        /// <see cref="https://docs.jiguang.cn/jsms/server/rest_jsms_api_account/#api_2"/>
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_jsms_api_account/#api_2"/></para>
         /// </summary>
         public HttpResponse CheckAppBalance()
         {
             Task<HttpResponse> task = Task.Run(() => CheckAppBalanceAsync());
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// <seealso cref="CreateMessageTemplate(TemplateMessage)"/>
+        /// </summary>
+        public async Task<HttpResponse> CreateMessageTemplateAsync(TemplateMessage template)
+        {
+            HttpContent httpContent = new StringContent(template.ToString(), Encoding.UTF8);
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("templates", httpContent).ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 创建短信模板。
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates/#api_1"/></para>
+        /// </summary>
+        /// <param name="template">短信模板对象。</param>
+        public HttpResponse CreateMessageTemplate(TemplateMessage template)
+        {
+            Task<HttpResponse> task = Task.Run(() => CreateMessageTemplateAsync(template));
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// <seealso cref="UpdateMessageTemplate(TemplateMessage)"/>
+        /// </summary>
+        public async Task<HttpResponse> UpdateMessageTemplateAsync(TemplateMessage template)
+        {
+            if (template.TemplateId == null)
+                throw new ArgumentNullException(nameof(template.TemplateId));
+
+            HttpContent httpContent = new StringContent(template.ToString(), Encoding.UTF8);
+            HttpResponseMessage httpResponseMessage = await httpClient.PutAsync($"templates/{template.TemplateId}", httpContent).ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 更新短信模板。
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates/#api_2"/></para>
+        /// </summary>
+        /// <param name="template">短信模板对象。</param>
+        public HttpResponse UpdateMessageTemplate(TemplateMessage template)
+        {
+            Task<HttpResponse> task = Task.Run(() => CreateMessageTemplateAsync(template));
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// <seealso cref="QueryMessageTemplate(int)"/>
+        /// </summary>
+        public async Task<HttpResponse> QueryMessageTemplateAsync(int tempId)
+        {
+            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync($"templates/{tempId}").ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 查询短信模板。
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates/#api_3"/></para>
+        /// </summary>
+        public HttpResponse QueryMessageTemplate(int tempId)
+        {
+            Task<HttpResponse> task = Task.Run(() => QueryMessageTemplateAsync(tempId));
+            task.Wait();
+            return task.Result;
+        }
+
+        /// <summary>
+        /// <seealso cref="DeleteMessageTempleteAsync(int)"/>
+        /// </summary>
+        public async Task<HttpResponse> DeleteMessageTempleteAsync(int tempId)
+        {
+            HttpResponseMessage httpResponseMessage = await httpClient.DeleteAsync($"templates/{tempId}").ConfigureAwait(false);
+            string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
+        }
+
+        /// <summary>
+        /// 删除短信模板。
+        /// <para><see cref="https://docs.jiguang.cn/jsms/server/rest_api_jsms_templates/#api_4"/></para>
+        /// </summary>
+        public HttpResponse DeleteMessageTemplete(int tempId)
+        {
+            Task<HttpResponse> task = Task.Run(() => DeleteMessageTempleteAsync(tempId));
             task.Wait();
             return task.Result;
         }

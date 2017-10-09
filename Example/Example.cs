@@ -7,13 +7,14 @@ namespace Example
 {
     class Example
     {
-        static JSMSClient jsmsClient = new JSMSClient("Your app's AppKey", "Your app's MasterSecret");
+        static JSMSClient jsmsClient = new JSMSClient("AppKey", "MasterSecret");
 
         static void Main(string[] args)
         {
             SendCode();
             SendTemplateMessageByTime();
             CheckAccountBalance();
+            CreateMessageTemplate();
 
             Console.ReadLine();
         }
@@ -57,5 +58,16 @@ namespace Example
             Console.WriteLine(httpResponse.Content);
         }
 
+        private static void CreateMessageTemplate()
+        {
+            HttpResponse httpResponse = jsmsClient.CreateMessageTemplate(new TemplateMessage()
+            {
+                Content = "您好，您的验证码是{{code}}，1分钟内有效！",  // 短信内容。
+                Type = 1,                   // 代表验证码类型。
+                ValidDuration = 60,         // 有效时间为 60 秒。
+                Remark = "此模板用于用户注册" // 备注。不会显示在短信中。
+            });
+            Console.WriteLine(httpResponse.Content);
+        }
     }
 }
