@@ -10,6 +10,7 @@
     <Company>Jiguang</Company>
     <Product>JSMS</Product>
     <Description>JSMS Library for .NET.</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
