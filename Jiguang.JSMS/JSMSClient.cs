@@ -516,7 +516,7 @@ namespace Jiguang.JSMS
         /// <param name="template">短信模板对象。</param>
         public HttpResponse UpdateMessageTemplate(TemplateMessage template)
         {
-            Task<HttpResponse> task = Task.Run(() => CreateMessageTemplateAsync(template));
+            Task<HttpResponse> task = Task.Run(() => UpdateMessageTemplateAsync(template));
             task.Wait();
             return task.Result;
         }
