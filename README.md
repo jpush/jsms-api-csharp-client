@@ -4,7 +4,7 @@
 
 ## Installation
 
-- [NuGet](https://www.nuget.org/packages/Jiguang.JSMS/1.0.0)
+- [NuGet](https://www.nuget.org/packages/Jiguang.JSMS)
 - 手动添加 Jiguang.JSMS.dll（在运行时可能会提示缺少其他的依赖，根据提示安装即可）。
 
 ## Documents
