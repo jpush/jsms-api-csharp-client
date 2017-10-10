@@ -58,6 +58,9 @@ namespace Example
             Console.WriteLine(httpResponse.Content);
         }
 
+        /// <summary>
+        /// 创建短信模板示例。
+        /// </summary>
         private static void CreateMessageTemplate()
         {
             HttpResponse httpResponse = jsmsClient.CreateMessageTemplate(new TemplateMessage()
