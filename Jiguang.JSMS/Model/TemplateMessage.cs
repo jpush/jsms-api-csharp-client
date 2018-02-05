@@ -43,7 +43,7 @@ namespace Jiguang.JSMS.Model
         public int Type { get; set; } = 1;
 
         /// <summary>
-        /// 验证码有效期，单位为秒（当模板类型为1时必传）。
+        /// 验证码有效期，单位为秒（当模板类型为 1 时必传）。
         /// </summary>
         [JsonProperty("ttl")]
         public int ValidDuration { get; set; }
