@@ -59,7 +59,7 @@ namespace Jiguang.JSMS
         /// <param name="tempId">模板 Id</param>
         public HttpResponse SendCode(string mobile, int tempId)
         {
-            Task<HttpResponse> task = Task.Run(() => SendCodeAsync(mobile, tempId));
+            Task<HttpResponse> task = SendCodeAsync(mobile, tempId);
             task.Wait();
             return task.Result;
         }
@@ -94,7 +94,7 @@ namespace Jiguang.JSMS
         /// <param name="voiceCode">语音验证码对象。</param>
         public HttpResponse SendVoiceCode(VoiceCode voiceCode)
         {
-            Task<HttpResponse> task = Task.Run(() => SendVoiceCodeAsync(voiceCode));
+            Task<HttpResponse> task = SendVoiceCodeAsync(voiceCode);
             task.Wait();
             return task.Result;
         }
@@ -110,12 +110,15 @@ namespace Jiguang.JSMS
             if (string.IsNullOrEmpty(code))
                 throw new ArgumentNullException(nameof(code));
 
+            var url = $"codes/{msgId}/valid";
+
             JObject json = new JObject
             {
                 { "code", code }
             };
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
-            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync($"codes/{msgId}/valid", httpContent).ConfigureAwait(false);
+
+            HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
         }
@@ -128,7 +131,7 @@ namespace Jiguang.JSMS
         /// <param name="code">验证码。</param>
         public HttpResponse IsCodeValid(string msgId, string code)
         {
-            Task<HttpResponse> task = Task.Run(() => IsCodeValidAsync(msgId, code));
+            Task<HttpResponse> task = IsCodeValidAsync(msgId, code);
             task.Wait();
             return task.Result;
         }
@@ -154,7 +157,7 @@ namespace Jiguang.JSMS
         /// <param name="message">模板短信对象。</param>
         public HttpResponse SendTemplateMessage(TemplateMessage message)
         {
-            Task<HttpResponse> task = Task.Run(() => SendTemplateMessageAsync(message));
+            Task<HttpResponse> task = SendTemplateMessageAsync(message);
             task.Wait();
             return task.Result;
         }
@@ -202,7 +205,7 @@ namespace Jiguang.JSMS
         /// <param name="templateMessageList">模板短信对象列表。</param>
         public HttpResponse SendTemplateMessage(List<TemplateMessage> templateMessageList)
         {
-            Task<HttpResponse> task = Task.Run(() => SendTemplateMessageAsync(templateMessageList));
+            Task<HttpResponse> task = SendTemplateMessageAsync(templateMessageList);
             task.Wait();
             return task.Result;
         }
@@ -235,7 +238,7 @@ namespace Jiguang.JSMS
         /// <param name="message">TemplateMessage 对象。</param>
         public HttpResponse SendTemplateMessageByTime(string sendTime, TemplateMessage message)
         {
-            Task<HttpResponse> task = Task.Run(() => SendTemplateMessageByTimeAsnyc(sendTime, message));
+            Task<HttpResponse> task = SendTemplateMessageByTimeAsnyc(sendTime, message);
             task.Wait();
             return task.Result;
         }
@@ -284,7 +287,7 @@ namespace Jiguang.JSMS
         /// <param name="templateMessageList">模板短信列表。注意该方法会忽略 TemplateMessage 对象中的 TempId 属性，而以传入的 tempId 为准。</param>
         public HttpResponse SendTemplateMessageListByTime(int tempId, string sendTime, List<TemplateMessage> templateMessageList)
         {
-            Task<HttpResponse> task = Task.Run(() => SendTemplateMessageListByTimeAsync(tempId, sendTime, templateMessageList));
+            Task<HttpResponse> task = SendTemplateMessageListByTimeAsync(tempId, sendTime, templateMessageList);
             task.Wait();
             return task.Result;
         }
@@ -296,8 +299,8 @@ namespace Jiguang.JSMS
         {
             JObject json = JObject.FromObject(templateMessage);
             json.Add("send_time", sendTime);
-
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
+
             HttpResponseMessage httpResponseMessage = await httpClient.PutAsync($"schedule/{scheduleId}", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
             return new HttpResponse(httpResponseMessage.StatusCode, httpResponseMessage.Headers, httpResponseContent);
@@ -312,7 +315,7 @@ namespace Jiguang.JSMS
         /// <param name="templateMessage">模板短信对象。注意该方法会忽略 TemplateMessage 对象中的 TempId 属性，而以传入的 tempId 为准。</param>
         public HttpResponse UpdateScheduleTask(string scheduleId, string sendTime, TemplateMessage templateMessage)
         {
-            Task<HttpResponse> task = Task.Run(() => UpdateScheduleTaskAsync(scheduleId, sendTime, templateMessage));
+            Task<HttpResponse> task = UpdateScheduleTaskAsync(scheduleId, sendTime, templateMessage);
             task.Wait();
             return task.Result;
         }
@@ -358,7 +361,7 @@ namespace Jiguang.JSMS
         /// <param name="templateMessage">模板短信对象列表。注意该方法会忽略 TemplateMessage 对象中的 TempId 属性，而以传入的 tempId 为准。</param>
         public HttpResponse UpdateScheduleTaskList(string scheduleId, int tempId, string sendTime, List<TemplateMessage> templateMessageList)
         {
-            Task<HttpResponse> task = Task.Run(() => UpdateScheduleTaskListAsync(scheduleId, tempId, sendTime, templateMessageList));
+            Task<HttpResponse> task = UpdateScheduleTaskListAsync(scheduleId, tempId, sendTime, templateMessageList);
             task.Wait();
             return task.Result;
         }
@@ -383,7 +386,7 @@ namespace Jiguang.JSMS
         /// <param name="scheduleId">定时发送任务 Id，由调用定时短信提交 API 后返回得到。</param>
         public HttpResponse QueryScheduleTask(string scheduleId)
         {
-            Task<HttpResponse> task = Task.Run(() => QueryScheduleTaskAsync(scheduleId));
+            Task<HttpResponse> task = QueryScheduleTaskAsync(scheduleId);
             task.Wait();
             return task.Result;
         }
@@ -408,7 +411,7 @@ namespace Jiguang.JSMS
         /// <param name="scheduleId">定时发送任务 Id，由调用定时短信提交 API 后返回得到。</param>
         public HttpResponse DeleteScheduleTask(string scheduleId)
         {
-            Task<HttpResponse> task = Task.Run(() => DeleteScheduleTaskAsync(scheduleId));
+            Task<HttpResponse> task = DeleteScheduleTaskAsync(scheduleId);
             task.Wait();
             return task.Result;
         }
@@ -446,7 +449,7 @@ namespace Jiguang.JSMS
         /// <param name="apiDevSecret">可以在极光官网控制台的个人信息中找到。</param>
         public HttpResponse CheckAccountBalance(string devKey, string apiDevSecret)
         {
-            Task<HttpResponse> task = Task.Run(() => CheckAccountBalanceAsync(devKey, apiDevSecret));
+            Task<HttpResponse> task = CheckAccountBalanceAsync(devKey, apiDevSecret);
             task.Wait();
             return task.Result;
         }
@@ -467,7 +470,7 @@ namespace Jiguang.JSMS
         /// </summary>
         public HttpResponse CheckAppBalance()
         {
-            Task<HttpResponse> task = Task.Run(() => CheckAppBalanceAsync());
+            Task<HttpResponse> task = CheckAppBalanceAsync();
             task.Wait();
             return task.Result;
         }
@@ -490,7 +493,7 @@ namespace Jiguang.JSMS
         /// <param name="template">短信模板对象。</param>
         public HttpResponse CreateMessageTemplate(TemplateMessage template)
         {
-            Task<HttpResponse> task = Task.Run(() => CreateMessageTemplateAsync(template));
+            Task<HttpResponse> task = CreateMessageTemplateAsync(template);
             task.Wait();
             return task.Result;
         }
@@ -516,7 +519,7 @@ namespace Jiguang.JSMS
         /// <param name="template">短信模板对象。</param>
         public HttpResponse UpdateMessageTemplate(TemplateMessage template)
         {
-            Task<HttpResponse> task = Task.Run(() => UpdateMessageTemplateAsync(template));
+            Task<HttpResponse> task = UpdateMessageTemplateAsync(template);
             task.Wait();
             return task.Result;
         }
@@ -537,7 +540,7 @@ namespace Jiguang.JSMS
         /// </summary>
         public HttpResponse QueryMessageTemplate(int tempId)
         {
-            Task<HttpResponse> task = Task.Run(() => QueryMessageTemplateAsync(tempId));
+            Task<HttpResponse> task = QueryMessageTemplateAsync(tempId);
             task.Wait();
             return task.Result;
         }
@@ -558,7 +561,7 @@ namespace Jiguang.JSMS
         /// </summary>
         public HttpResponse DeleteMessageTemplete(int tempId)
         {
-            Task<HttpResponse> task = Task.Run(() => DeleteMessageTempleteAsync(tempId));
+            Task<HttpResponse> task = DeleteMessageTempleteAsync(tempId);
             task.Wait();
             return task.Result;
         }
