@@ -63,12 +63,12 @@ namespace Example
         /// </summary>
         private static void CreateMessageTemplate()
         {
-            HttpResponse httpResponse = jsmsClient.CreateMessageTemplate(new TemplateMessage()
+            HttpResponse httpResponse = jsmsClient.CreateMessageTemplate(new TemplateMessage
             {
                 Content = "您好，您的验证码是{{code}}，1分钟内有效！",  // 短信内容。
-                Type = 1,                   // 代表验证码类型。
-                ValidDuration = 60,         // 有效时间为 60 秒。
-                Remark = "此模板用于用户注册" // 备注。不会显示在短信中。
+                Type = 1,                                            // 代表验证码类型。
+                ValidDuration = 60,                                  // 有效时间为 60 秒。
+                Remark = "此模板用于用户注册"                         // 备注。不会显示在短信中。
             });
             Console.WriteLine(httpResponse.Content);
         }

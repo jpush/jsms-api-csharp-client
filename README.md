@@ -5,7 +5,6 @@
 ## Installation
 
 - [NuGet](https://www.nuget.org/packages/Jiguang.JSMS)
-- 手动添加 Jiguang.JSMS.dll（在运行时可能会提示缺少其他的依赖，根据提示安装即可）。
 
 ## Documents
 
@@ -13,7 +12,10 @@
 
 ## Support Frameworks
 
-基于 [.NET Standard 1.1](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard1.1.md) 和 [.NET Standard 1.3](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard1.3.md)。
+- [.NET Standard 1.1](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard1.1.md)
+- [.NET Standard 2.0](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md)
+- .NET Framework 4.5
+- .NET Framework 4.6.1
 
 ## Support
 
