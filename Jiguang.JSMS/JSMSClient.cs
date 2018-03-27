@@ -1,5 +1,4 @@
 ﻿using Jiguang.JSMS.Model;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -277,7 +276,9 @@ namespace Jiguang.JSMS
                 };
 
                 if (msg.TemplateParameters != null && msg.TemplateParameters.Count != 0)
-                    item.Add(JsonConvert.SerializeObject(msg.TemplateParameters));
+                {
+                    item.Add("temp_para", JObject.FromObject(msg.TemplateParameters));
+                }
 
                 recipients.Add(item);
             }
@@ -351,7 +352,7 @@ namespace Jiguang.JSMS
                 };
 
                 if (msg.TemplateParameters != null && msg.TemplateParameters.Count != 0)
-                    item.Add(JsonConvert.SerializeObject(msg.TemplateParameters));
+                    item.Add("temp_para", JObject.FromObject(msg.TemplateParameters));
 
                 recipients.Add(item);
             }
