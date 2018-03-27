@@ -196,7 +196,9 @@ namespace Jiguang.JSMS
                 };
 
                 if (msg.TemplateParameters != null && msg.TemplateParameters.Count != 0)
-                    item.Add(JsonConvert.SerializeObject(msg.TemplateParameters));
+                {
+                    item.Add("temp_para", JObject.FromObject(msg.TemplateParameters));
+                }
 
                 recipients.Add(item);
             }
