@@ -12,7 +12,7 @@ namespace Jiguang.JSMS
     /// <summary>
     /// 极光短信（JSMS)客户端。
     /// </summary>
-    public class JSMSClient
+    public partial class JSMSClient
     {
         /// <summary>
         /// 对外暴露 HttpClient，可以增加或修改设置。

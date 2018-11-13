@@ -2,6 +2,7 @@
 using Jiguang.JSMS.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Example
 {
@@ -11,10 +12,11 @@ namespace Example
 
         static void Main(string[] args)
         {
-            SendCode();
-            SendTemplateMessageByTime();
-            CheckAccountBalance();
-            CreateMessageTemplate();
+            //SendCode();
+            //SendTemplateMessageByTime();
+            //CheckAccountBalance();
+            //CreateMessageTemplate();
+            AddSign();
 
             Console.ReadLine();
         }
@@ -25,7 +27,7 @@ namespace Example
         /// </summary>
         private static void SendCode()
         {
-            HttpResponse httpResponse = jsmsClient.SendCode("13000001111", 1);
+            HttpResponse httpResponse = jsmsClient.SendCode("13000001111", 123);
             Console.WriteLine(httpResponse.Content);
         }
 
@@ -59,6 +61,15 @@ namespace Example
         }
 
         /// <summary>
+        /// 查询应用余量，应用余量指分配给某个应用单独使用的短信余量。
+        /// </summary>
+        private static void CheckAppBalance()
+        {
+            HttpResponse httpResponse = jsmsClient.CheckAppBalance();
+            Console.WriteLine(httpResponse.Content);
+        }
+
+        /// <summary>
         /// 创建短信模板示例。
         /// </summary>
         private static void CreateMessageTemplate()
@@ -71,6 +82,25 @@ namespace Example
                 Remark = "此模板用于用户注册"                         // 备注。不会显示在短信中。
             });
             Console.WriteLine(httpResponse.Content);
+        }
+
+
+        /// <summary>
+        /// 新增签名
+        /// </summary>
+        private static async void AddSign()
+        {
+            using (var img = File.OpenRead("Kendo001.jpg"))
+            {
+                var httpResponse = await jsmsClient.AddSignAsync(new SignModel
+                {
+                    Sign = "个性签名",
+                    //Image0=img,
+                    //Image1=img,
+                });
+
+                Console.WriteLine(httpResponse.Content);
+            }    
         }
     }
 }
