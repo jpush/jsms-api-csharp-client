@@ -155,7 +155,7 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="signId"></param>
         /// <returns></returns>
-        public HttpResponse Delign(int signId)
+        public HttpResponse DelSign(int signId)
         {
             Task<HttpResponse> task = Task.Run(() => DelSignAsync(signId));
             task.Wait();
