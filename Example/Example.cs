@@ -12,10 +12,10 @@ namespace Example
 
         static void Main(string[] args)
         {
-            //SendCode();
-            //SendTemplateMessageByTime();
-            //CheckAccountBalance();
-            //CreateMessageTemplate();
+            SendCode();
+            SendTemplateMessageByTime();
+            CheckAccountBalance();
+            CreateMessageTemplate();
             AddSign();
 
             Console.ReadLine();
@@ -27,7 +27,7 @@ namespace Example
         /// </summary>
         private static void SendCode()
         {
-            HttpResponse httpResponse = jsmsClient.SendCode("13000001111", 123);
+            HttpResponse httpResponse = jsmsClient.SendCode("13000001111", 1);
             Console.WriteLine(httpResponse.Content);
         }
 
