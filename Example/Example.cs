@@ -92,7 +92,7 @@ namespace Example
         {
             using (var img = File.OpenRead("Kendo001.jpg"))
             {
-                var httpResponse = await jsmsClient.AddSignAsync(new SignModel
+                var httpResponse = await jsmsClient.CreateSignAsync(new SignModel
                 {
                     Sign = "个性签名",
                     //Image0=img,

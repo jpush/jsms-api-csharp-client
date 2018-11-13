@@ -14,7 +14,7 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="signModel"></param>
         /// <returns></returns>
-        public async Task<HttpResponse> AddSignAsync(SignModel signModel)
+        public async Task<HttpResponse> CreateSignAsync(SignModel signModel)
         {
             if (signModel==null||string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
@@ -53,9 +53,9 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="signModel"></param>
         /// <returns></returns>
-        public HttpResponse AddSign(SignModel signModel)
+        public HttpResponse CreateSign(SignModel signModel)
         {
-            Task<HttpResponse> task = Task.Run(() => AddSignAsync(signModel));
+            Task<HttpResponse> task = Task.Run(() => CreateSignAsync(signModel));
             task.Wait();
             return task.Result;
         }
@@ -66,7 +66,7 @@ namespace Jiguang.JSMS
         /// <param name="signId"></param>
         /// <param name="signModel"></param>
         /// <returns></returns>
-        public async Task<HttpResponse> UpdSignAsync(int signId,SignModel signModel)
+        public async Task<HttpResponse> UpdateSignAsync(int signId,SignModel signModel)
         {
             if (signModel == null || string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
@@ -104,9 +104,9 @@ namespace Jiguang.JSMS
         /// <param name="signId"></param>
         /// <param name="signModel"></param>
         /// <returns></returns>
-        public HttpResponse UpdSign(int signId,SignModel signModel)
+        public HttpResponse UpdateSign(int signId,SignModel signModel)
         {
-            Task<HttpResponse> task = Task.Run(() => UpdSignAsync(signId,signModel));
+            Task<HttpResponse> task = Task.Run(() => UpdateSignAsync(signId,signModel));
             task.Wait();
             return task.Result;
         }
@@ -141,7 +141,7 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="signId"></param>
         /// <returns></returns>
-        public async Task<HttpResponse> DelSignAsync(int signId)
+        public async Task<HttpResponse> DeleteSignAsync(int signId)
         {
             using (var resp = await httpClient.DeleteAsync($"sign/{signId}"))
             {
@@ -155,9 +155,9 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="signId"></param>
         /// <returns></returns>
-        public HttpResponse DelSign(int signId)
+        public HttpResponse DeleteSign(int signId)
         {
-            Task<HttpResponse> task = Task.Run(() => DelSignAsync(signId));
+            Task<HttpResponse> task = Task.Run(() => DeleteSignAsync(signId));
             task.Wait();
             return task.Result;
         }
