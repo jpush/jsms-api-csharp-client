@@ -596,28 +596,7 @@ namespace Jiguang.JSMS
             if (signModel == null || string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
 
-            MultipartFormDataContent content = new MultipartFormDataContent
-            {
-                { new StringContent(signModel.Sign), "sign" }
-            };
-            if (signModel.Image0 != null)
-            {
-                content.Add(new StreamContent(signModel.Image0), "image0", "image0");
-            }
-            if (signModel.Image1 != null)
-            {
-                content.Add(new StreamContent(signModel.Image1), "image1", "image1");
-            }
-            if (signModel.Image2 != null)
-            {
-                content.Add(new StreamContent(signModel.Image2), "image2", "image2");
-            }
-            if (signModel.Image3 != null)
-            {
-                content.Add(new StreamContent(signModel.Image3), "image3", "image3");
-            }
-
-            using (var resp = await httpClient.PostAsync("sign", content))
+            using (var resp = await httpClient.PostAsync("sign", signModel.ToForm()))
             {
                 string respStr = await resp.Content.ReadAsStringAsync();
                 return new HttpResponse(resp.StatusCode, resp.Headers, respStr);
@@ -654,18 +633,6 @@ namespace Jiguang.JSMS
             if (signModel.Image0 != null)
             {
                 content.Add(new StreamContent(signModel.Image0), "image0", "image0");
-            }
-            if (signModel.Image1 != null)
-            {
-                content.Add(new StreamContent(signModel.Image1), "image1", "image1");
-            }
-            if (signModel.Image2 != null)
-            {
-                content.Add(new StreamContent(signModel.Image2), "image2", "image2");
-            }
-            if (signModel.Image3 != null)
-            {
-                content.Add(new StreamContent(signModel.Image3), "image3", "image3");
             }
             using (var resp = await httpClient.PostAsync($"sign/{signId}", content))
             {
