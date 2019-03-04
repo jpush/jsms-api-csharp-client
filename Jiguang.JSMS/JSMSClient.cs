@@ -595,26 +595,25 @@ namespace Jiguang.JSMS
         {
             if (signModel == null || string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
+            if (signModel.Remark?.Length > 100){
+                throw new NotSupportedException("签名备注不能超过100个字");
+            }
 
             MultipartFormDataContent content = new MultipartFormDataContent
             {
-                new StringContent(signModel.Sign),
+                { new StringContent(signModel.Sign), "sign" },
+                { new StringContent(((int)signModel.Type).ToString()), "type"}
             };
-            if (signModel.Image0 != null)
+
+            
+            if (signModel.Image != null)
             {
-                content.Add(new StreamContent(signModel.Image0));
+                content.Add(new StreamContent(signModel.Image), "image");
+                //content.Add(new StreamContent(signModel.Image), "image0");
             }
-            if (signModel.Image1 != null)
+            if (!string.IsNullOrEmpty(signModel.Remark))
             {
-                content.Add(new StreamContent(signModel.Image1));
-            }
-            if (signModel.Image2 != null)
-            {
-                content.Add(new StreamContent(signModel.Image2));
-            }
-            if (signModel.Image3 != null)
-            {
-                content.Add(new StreamContent(signModel.Image3));
+                content.Add(new StringContent(signModel.Remark), "remark");
             }
 
             using (var resp = await httpClient.PostAsync("sign", content))
@@ -648,25 +647,25 @@ namespace Jiguang.JSMS
             if (signModel == null || string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
 
+            if (signModel.Remark?.Length > 100)
+            {
+                throw new NotSupportedException("签名备注不能超过100个字");
+            }
+
             MultipartFormDataContent content = new MultipartFormDataContent
             {
-                new StringContent(signModel.Sign),
+                { new StringContent(signModel.Sign), "sign" },
+                { new StringContent(((int)signModel.Type).ToString()), "type"}
             };
-            if (signModel.Image0 != null)
+
+
+            if (signModel.Image != null)
             {
-                content.Add(new StreamContent(signModel.Image0));
+                content.Add(new StreamContent(signModel.Image), "image0");
             }
-            if (signModel.Image1 != null)
+            if (!string.IsNullOrEmpty(signModel.Remark))
             {
-                content.Add(new StreamContent(signModel.Image1));
-            }
-            if (signModel.Image2 != null)
-            {
-                content.Add(new StreamContent(signModel.Image2));
-            }
-            if (signModel.Image3 != null)
-            {
-                content.Add(new StreamContent(signModel.Image3));
+                content.Add(new StringContent(signModel.Remark));
             }
 
             using (var resp = await httpClient.PostAsync($"sign/{signId}", content))
