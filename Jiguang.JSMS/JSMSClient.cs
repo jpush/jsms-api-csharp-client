@@ -626,15 +626,7 @@ namespace Jiguang.JSMS
             if (signModel == null || string.IsNullOrEmpty(signModel.Sign))
                 throw new ArgumentNullException(nameof(signModel));
 
-            MultipartFormDataContent content = new MultipartFormDataContent
-            {
-                { new StringContent(signModel.Sign), "sign" }
-            };
-            if (signModel.Image0 != null)
-            {
-                content.Add(new StreamContent(signModel.Image0), "image0", "image0");
-            }
-            using (var resp = await httpClient.PostAsync($"sign/{signId}", content))
+            using (var resp = await httpClient.PostAsync($"sign/{signId}", signModel.ToForm()))
             {
                 string respStr = await resp.Content.ReadAsStringAsync();
                 return new HttpResponse(resp.StatusCode, resp.Headers, respStr);

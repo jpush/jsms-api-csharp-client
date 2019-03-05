@@ -161,6 +161,7 @@ $RECYCLE.BIN/
 # VisualStudioCode
 .vscode
 *.ide
+.vs
 
 Jiguang\.JSMS/\.vs/Jiguang\.JSMS/v15/sqlite3/
 

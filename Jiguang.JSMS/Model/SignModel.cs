@@ -44,9 +44,12 @@ namespace Jiguang.JSMS.Model
             {
                 content.Add(new StringContent(Convert.ToString(this.Type)), "type");
             }
-
-            if (this.Remark != null)
+            if (!string.IsNullOrEmpty(this.Remark))
             {
+                if (this.Remark?.Length > 100)
+                {
+                    throw new NotSupportedException("签名备注不能超过100个字");
+                }
                 content.Add(new StringContent(this.Remark), "remark");
             }
             return content;

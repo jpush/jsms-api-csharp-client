@@ -16,7 +16,7 @@ namespace Example
             SendTemplateMessageByTime();
             CheckAccountBalance();
             CreateMessageTemplate();
-            AddSign();
+            //AddSign();
 
             Console.ReadLine();
         }
@@ -88,14 +88,15 @@ namespace Example
         /// <summary>
         /// 新增签名
         /// </summary>
-        private static async void AddSign()
+        private static void AddSign()
         {
             using (var img = File.OpenRead("Kendo001.jpg"))
             {
-                var httpResponse = await jsmsClient.CreateSignAsync(new SignModel
+                var httpResponse = jsmsClient.CreateSign(new SignModel
                 {
                     Sign = "个性签名",
-                    //Image0=img,
+                    Type = 2,
+                    Image0=img,
                     //Image1=img,
                 });
 
