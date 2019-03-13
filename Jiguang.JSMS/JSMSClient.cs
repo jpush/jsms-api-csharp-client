@@ -189,6 +189,8 @@ namespace Jiguang.JSMS
                 throw new ArgumentException(nameof(templateMessageList));
 
             int? tempId = templateMessageList[0].TemplateId;
+            int? signId = templateMessageList[0].SignId;
+            string tag = templateMessageList[0].Tag;
 
             JArray recipients = new JArray();
             foreach (TemplateMessage msg in templateMessageList)
@@ -211,6 +213,14 @@ namespace Jiguang.JSMS
                 { "temp_id", tempId },
                 { "recipients", recipients }
             };
+            if (signId != null)
+            {
+                json.Add("sign_id", signId);
+            }
+            if (!string.IsNullOrEmpty(tag))
+            {
+                json.Add("tag", tag);
+            }
 
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
             HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("messages/batch", httpContent).ConfigureAwait(false);

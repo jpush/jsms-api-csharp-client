@@ -15,10 +15,22 @@ namespace Jiguang.JSMS.Model
         public string Mobile { get; set; }
 
         /// <summary>
+        /// 签名 Id。
+        /// </summary>
+        [JsonProperty("sign_id")]
+        public int? SignId { get; set; }
+
+        /// <summary>
         /// 模板 Id。
         /// </summary>
         [JsonProperty("temp_id")]
         public int? TemplateId { get; set; }
+
+        /// <summary>
+        /// 标签
+        /// </summary>
+        [JsonProperty("tag")]
+        public string Tag { get; set; }
 
         /// <summary>
         /// 模板参数，需要替换的键值对。
