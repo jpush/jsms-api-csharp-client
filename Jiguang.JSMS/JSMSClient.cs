@@ -45,7 +45,7 @@ namespace Jiguang.JSMS
         /// <summary>
         /// <see cref="SendCode(string, int)"/>
         /// </summary>
-        public async Task<HttpResponse> SendCodeAsync(string mobile, int tempId)
+        public async Task<HttpResponse> SendCodeAsync(string mobile, int tempId, int? signId)
         {
             if (string.IsNullOrEmpty(mobile))
                 throw new ArgumentNullException(nameof(mobile));
@@ -55,6 +55,10 @@ namespace Jiguang.JSMS
                 { "mobile", mobile },
                 { "temp_id", tempId }
             };
+            if (signId != null)
+            {
+                json.Add("sign_id", signId);
+            }
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
             HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("codes", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -67,9 +71,9 @@ namespace Jiguang.JSMS
         /// </summary>
         /// <param name="mobile">手机号码</param>
         /// <param name="tempId">模板 Id</param>
-        public HttpResponse SendCode(string mobile, int tempId)
+        public HttpResponse SendCode(string mobile, int tempId, int? signId)
         {
-            Task<HttpResponse> task = Task.Run(() => SendCodeAsync(mobile, tempId));
+            Task<HttpResponse> task = Task.Run(() => SendCodeAsync(mobile, tempId, signId));
             task.Wait();
             return task.Result;
         }
