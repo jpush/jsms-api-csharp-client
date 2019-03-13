@@ -297,6 +297,9 @@ namespace Jiguang.JSMS
                 recipients.Add(item);
             }
 
+            int? signId = templateMessageList[0].SignId;
+            string tag = templateMessageList[0].Tag;
+
             JObject json = new JObject
             {
                 { "send_time", sendTime },
@@ -304,6 +307,14 @@ namespace Jiguang.JSMS
                 { "recipients", recipients }
             };
 
+            if (signId != null)
+            {
+                json.Add("sign_id", signId);
+            }
+            if (!string.IsNullOrEmpty(tag))
+            {
+                json.Add("tag", tag);
+            }
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
             HttpResponseMessage httpResponseMessage = await httpClient.PostAsync("schedule/batch", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -371,6 +382,9 @@ namespace Jiguang.JSMS
                 recipients.Add(item);
             }
 
+            int? signId = templateMessageList[0].SignId;
+            string tag = templateMessageList[0].Tag;
+
             JObject json = new JObject
             {
                 { "send_time", sendTime },
@@ -378,6 +392,14 @@ namespace Jiguang.JSMS
                 { "recipients", recipients }
             };
 
+            if (signId != null)
+            {
+                json.Add("sign_id", signId);
+            }
+            if (!string.IsNullOrEmpty(tag))
+            {
+                json.Add("tag", tag);
+            }
             HttpContent httpContent = new StringContent(json.ToString(), Encoding.UTF8);
             HttpResponseMessage httpResponseMessage = await httpClient.PutAsync($"schedule/batch/{scheduleId}", httpContent).ConfigureAwait(false);
             string httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
